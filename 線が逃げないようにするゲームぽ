@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>横線が逃げないようにするゲーム</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      transform: rotate(0deg);
+      transition: background-color 0.5s ease;
+    }
+
+    .scrollable-container {
+      overflow-y: scroll;
+      height: 80vh;
+      width: 100%;
+      position: relative;
+    }
+
+    .lane-container {
+      position: absolute;
+      width: 100%;
+      height: var(--totalHeight, 100vh);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .lane {
+      width: 9%;
+      height: 100%;
+      background-color: #ccc;
+    }
+
+    .line {
+      position: absolute;
+      width: 100%;
+      height: 5px;
+      background-color: #000;
+      top: 0;
+      animation: flow var(--duration, 80s) linear;
+    }
+
+    @keyframes flow {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(var(--totalHeight, 100vh));
+      }
+    }
+
+    .judge-line {
+      position: absolute;
+      width: 100%;
+      height: 25px;
+      background-color: rgba(0, 0, 0, 0.5);
+      bottom: 150px;
+    }
+
+    .failed-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      color: red;
+      display: none;
+    }
+
+    .clear-text {
+      position: absolute;
+      font-size: 3em;
+      color: blue;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="scrollable-container">
+    <div class="lane-container">
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+       <div class="lane"></div>
+      <div class="line" id="game-line"></div>
+      <div class="judge-line"></div>
+    </div>
+    <div class="failed-text" id="failed-text">FAILED</div>
+    <div class="clear-text" id="clear-text">CLEAR</div>
+  </div>
+
+  <script>
+    const gameLine = document.getElementById('game-line');
+    const failedText = document.getElementById('failed-text');
+    const clearText = document.getElementById('clear-text');
+    let failed = false;
+    let finished = false;
+
+    function checkLinePosition() {
+      const linePosition = gameLine.getBoundingClientRect();
+      const judgeLine = document.querySelector('.judge-line').getBoundingClientRect();
+
+      if ((linePosition.top < 0 || linePosition.bottom > window.innerHeight)&&
+      !finished) {
+        failedText.style.display = 'block';
+        failed = true;
+        gameLine.style.animationPlayState = 'paused';
+        document.body.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+      } else {
+        failedText.style.display = 'none';
+        if (failed) {
+          document.body.style.backgroundColor = 'red';
+          failed = false;
+        }
+      }
+
+      // 判定線との衝突を検出して、クリアする
+      if (
+        linePosition.top >= judgeLine.top &&
+        linePosition.bottom <= judgeLine.bottom &&
+        !finished
+      ) {
+        clearText.style.display = 'block';
+        clearText.style.top = `${judgeLine.top - 0}px`; // 判定線の直上に表示する
+        document.body.style.backgroundColor = 'rgba(0, 0, 255, 0.5)';
+        finished = true;
+        gameLine.style.animationPlayState = 'paused';
+      }
+    }
+
+    // ユーザーが入力した値をCSS変数にセットする
+    const duration = prompt('speed(s)', '10');
+    document.documentElement.style.setProperty('--duration', `${duration}s`);
+
+    const scrollStart = prompt('START LINE(vh)', '0');
+    const scrollEnd = prompt('total length(vh)', '250');
+    const totalHeight = `${parseInt(scrollStart) + parseInt(scrollEnd)}vh`;
+    document.documentElement.style.setProperty('--totalHeight', totalHeight);
+
+    setInterval(checkLinePosition, 100);
+  </script>
+</body>
+</html>
