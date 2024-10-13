@@ -70,7 +70,8 @@
         <p id="hantei"></p>
     </div>
     <p id="comboDisplay">コンボ: 0</p>
-    <p id="syousai
+    <p id="syousaiP">PERFECT: 0</p>
+    <p id="syousaiG">GOOD: 0</p>
     <script>
         let bpm = 120;
         let interval = 4;
@@ -84,7 +85,11 @@
             interval = parseInt(document.getElementById('intervalInput').value);
             noteSpeed = parseInt(document.getElementById('speedInput').value);
             combo = 0;
+            pafe=0;
+            gudo=0;
             document.getElementById('comboDisplay').innerText = 'コンボ: 0';
+            document.getElementById('syousaiP').innerText = 'PERFECT: 0';
+            document.getElementById('syousaiG').innerText = 'GOOD: 0';
             clearInterval(gameInterval);
 
             gameInterval = setInterval(spawnNote, (60000 / (bpm * interval / 4)));
@@ -121,10 +126,12 @@
                     if (notePosition > judgmentLinePosition - 50 && notePosition < judgmentLinePosition + 0) {
                         note.classList.add('perfect');
                         updateCombo(1);
+                        updateP(1);
                         document.getElementById('hantei').innerHTML = 'PERFECT!!';
                     } else if (notePosition >= judgmentLinePosition - 100 && notePosition <= judgmentLinePosition + 50) {
                         note.classList.add('good');
                         updateCombo(0.5);
+                        updateG(1);
                         document.getElementById('hantei').innerHTML = 'GOOD!';
                     } else {
                         combo = 0;
@@ -153,6 +160,13 @@
             combo += score;
             document.getElementById('comboDisplay').innerText = 'コンボ: ' + combo;
         }
+        function updateP(num){
+           pafe+= num;
+           document.getElementById('syousaiP').InnerText='PERFECT: '+num;
+        }
+        function updateG(mun);{
+           gudo+= mun;
+           document.getElementById('syousaiG').InnerText='GOOD: '+mun;
     </script>
 </body>
 </html>
