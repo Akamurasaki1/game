@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    #<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -60,7 +60,7 @@
         <div id="judgmentLine"></div>
     </div>
     <p id="comboDisplay">コンボ: 0</p>
-
+    <p id="hantei"></p>
     <script>
         let bpm = 120;
         let interval = 4;
@@ -111,9 +111,12 @@
                     if (notePosition > judgmentLinePosition - 50 && notePosition < judgmentLinePosition + 0) {
                         note.classList.add('perfect');
                         updateCombo(1);
+                        document.getElementById('hantei').innerText = 'PERFECT!!';
+                        
                     } else if (notePosition >= judgmentLinePosition - 100 && notePosition <= judgmentLinePosition + 50) {
                         note.classList.add('good');
                         updateCombo(0.5);
+                        document.getElementById('hantei').innerText = 'GOOD!';
                     } else {
                         combo = 0;
                         document.getElementById('comboDisplay').innerText = 'コンボ: 0';
