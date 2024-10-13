@@ -111,12 +111,11 @@
                     if (notePosition > judgmentLinePosition - 50 && notePosition < judgmentLinePosition + 0) {
                         note.classList.add('perfect');
                         updateCombo(1);
-                        document.getElementById('hantei').innerText = 'PERFECT!!';
-                        
+                        document.getElementById('hantei').innerHTML = 'PERFECT!!';
                     } else if (notePosition >= judgmentLinePosition - 100 && notePosition <= judgmentLinePosition + 50) {
                         note.classList.add('good');
                         updateCombo(0.5);
-                        document.getElementById('hantei').innerText = 'GOOD!';
+                        document.getElementById('hantei').innerHTML = 'GOOD!';
                     } else {
                         combo = 0;
                         document.getElementById('comboDisplay').innerText = 'コンボ: 0';
