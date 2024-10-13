@@ -34,6 +34,11 @@
         .good {
             background-color: orange;
         }
+        .hyouka {
+            position: absolute;
+            bottom: 100px; /* 判定線の位置 */
+            width: 125px;
+        }
         #judgmentLine {
             position: absolute;
             bottom: 50px; /* 判定線の位置 */
@@ -60,7 +65,9 @@
         <div id="judgmentLine"></div>
     </div>
     <p id="comboDisplay">コンボ: 0</p>
-    <p id="hantei"></p>
+    <div class="hyouka">
+        <p id="hantei"></p>
+    </div>
     <script>
         let bpm = 120;
         let interval = 4;
