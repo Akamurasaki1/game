@@ -156,6 +156,8 @@
                     gameArea.removeChild(note);
                     clearInterval(interval);
                     combo = 0;
+                    updateP(0);
+                    updateG(0);
                     document.getElementById('comboDisplay').innerText = 'コンボ: 0';
                     document.getElementById('hantei').innerHTML = 'MISS';
                 }
@@ -169,12 +171,12 @@
         
         function updateP(num){
             pafe+= num;
-            document.getElementById('syousaiP').InnerText='PERFECT: '+ num;
+            document.getElementById('syousaiP').InnerText='PERFECT: '+ pafe;
         }
         
         function updateG(mun){
             gudo+= mun;
-            document.getElementById('syousaiG').InnerText='GOOD: '+mun;
+            document.getElementById('syousaiG').InnerText='GOOD: '+gudo;
         }
         
     </script>
