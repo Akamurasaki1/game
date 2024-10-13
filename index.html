@@ -129,14 +129,18 @@
                         note.classList.add('perfect');
                         updateCombo(1);
                         updateP(1);
+                        updateG(0);
                         document.getElementById('hantei').innerHTML = 'PERFECT!!';
                     } else if (notePosition >= judgmentLinePosition - 100 && notePosition <= judgmentLinePosition + 50) {
                         note.classList.add('good');
                         updateCombo(0.5);
+                        updateP(0);
                         updateG(1);
                         document.getElementById('hantei').innerHTML = 'GOOD!';
                     } else {
                         combo = 0;
+                        updateP(0);
+                        updateG(0);
                         document.getElementById('comboDisplay').innerText = 'コンボ: 0';
                         document.getElementById('hantei').innerHTML = 'MISS';
                     }
