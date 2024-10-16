@@ -140,12 +140,15 @@
                         document.getElementById('comboDisplay').innerText = 'コンボ: 0';
                         document.getElementById('hantei').innerHTML = 'MISS';
                     }
-
+                    
+                    // ノーツがタップされたら、クリックイベントを解除して処理が一度だけ行われるようにする
+                    note.onclick = null;
+                    
                     setTimeout(() => {
                         gameArea.removeChild(note);
                     }, 100);
                     clearInterval(interval);
-                });
+                });.
 
                 // ノートが画面外に出た場合
                 if (topPosition > gameArea.clientHeight) {
