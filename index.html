@@ -144,9 +144,10 @@
                     // ノーツがタップされたら、クリックイベントを解除して処理が一度だけ行われるようにする
                     note.removeEventListener('touchstart', handleTouch);
                     
-                    setTimeout(() => {
-                        gameArea.removeChild(note);
-                    }, 100);
+                    // ノーツを削除する処理
+                    if (note.parentNode) {
+                        note.parentNode.removeChild(note);
+                    }
                     clearInterval(interval);
                 });
 
