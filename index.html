@@ -141,15 +141,19 @@
                         document.getElementById('hantei').innerHTML = 'MISS';
                     }
                     
-                    // ノーツがタップされたら、クリックイベントを解除して処理が一度だけ行われるようにする
+                                // ノーツがタップされたら、クリックイベントを解除して処理が一度だけ行われるようにする
                     note.removeEventListener('touchstart', handleTouch);
-                    
-                    // ノーツを削除する処理
+
+            // ノーツを削除する処理
                     if (note.parentNode) {
                         note.parentNode.removeChild(note);
                     }
+
                     clearInterval(interval);
-                });
+                 };
+
+                note.addEventListener('touchstart', handleTouch);
+
 
                 // ノートが画面外に出た場合
                 if (topPosition > gameArea.clientHeight) {
