@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -36,8 +36,7 @@
         }
         .hyouka {
             position: absolute;
-            /*bottom:125px;*/
-            text-align:center;
+            text-align: center;
             width: 100%;
             height: 150px;
         }
@@ -72,14 +71,15 @@
     <p id="comboDisplay">コンボ: 0</p>
     <p id="syousaiP">PERFECT: 0</p>
     <p id="syousaiG">GOOD: 0</p>
+
     <script>
         let bpm = 120;
         let interval = 4;
         let noteSpeed = 5;
         let gameInterval;
         let combo = 0;
-        let pafe=0;
-        let gudo=0;
+        let pafe = 0;
+        let gudo = 0;
         let leftNote = true;  // 左右交互に流すためのフラグ
 
         function startGame() {
@@ -87,8 +87,8 @@
             interval = parseInt(document.getElementById('intervalInput').value);
             noteSpeed = parseInt(document.getElementById('speedInput').value);
             combo = 0;
-            pafe=0;
-            gudo=0;
+            pafe = 0;
+            gudo = 0;
             document.getElementById('comboDisplay').innerText = 'コンボ: 0';
             document.getElementById('syousaiP').innerText = 'PERFECT: 0';
             document.getElementById('syousaiG').innerText = 'GOOD: 0';
@@ -121,7 +121,7 @@
                 note.style.top = (topPosition + noteSpeed) + 'px';
 
                 // タップの処理
-                note.onclick = function () {
+                note.addEventListener('touchstart', function () {
                     const notePosition = parseInt(note.style.top);
                     const judgmentLinePosition = gameArea.clientHeight - 50; // 判定線の位置
 
@@ -145,15 +145,13 @@
                         gameArea.removeChild(note);
                     }, 100);
                     clearInterval(interval);
-                }
+                });
 
                 // ノートが画面外に出た場合
                 if (topPosition > gameArea.clientHeight) {
                     gameArea.removeChild(note);
                     clearInterval(interval);
                     combo = 0;
-                    updateP(0);
-                    updateG(0);
                     document.getElementById('comboDisplay').innerText = 'コンボ: 0';
                     document.getElementById('hantei').innerHTML = 'MISS';
                 }
@@ -164,17 +162,16 @@
             combo += score;
             document.getElementById('comboDisplay').innerText = 'コンボ: ' + combo;
         }
-        
-        function updateP(num){
-            pafe+= num;
-            document.getElementById('syousaiP').InnerText='PERFECT: '+ pafe;
+
+        function updateP(num) {
+            pafe += num;
+            document.getElementById('syousaiP').innerText = 'PERFECT: ' + pafe;
         }
-        
-        function updateG(mun){
-            gudo+= mun;
-            document.getElementById('syousaiG').InnerText='GOOD: '+gudo;
+
+        function updateG(num) {
+            gudo += num;
+            document.getElementById('syousaiG').innerText = 'GOOD: ' + gudo;
         }
-        
     </script>
 </body>
 </html>
